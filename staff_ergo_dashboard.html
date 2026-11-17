@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAFF-ERGO | Sistem Skrining Ergonomi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Sci-Fi / Cyberpunk Theme Overrides */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Deep slate */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.08), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 30%),
+                linear-gradient(rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.9)),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 4px);
+            background-attachment: fixed;
+            color: #f8fafc;
+        }
+
+        .font-heading {
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-input {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        /* Neon Text Utilities */
+        .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.6); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* Hexagon button effect */
+        .btn-cyber {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s;
+        }
+        .btn-cyber:hover::before { left: 100%; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- HEADER -->
+        <header class="text-center py-8 relative">
+            <div class="absolute inset-0 flex justify-center items-center opacity-20 pointer-events-none">
+                <div class="w-64 h-64 bg-cyan-500 rounded-full blur-[100px]"></div>
+            </div>
+            <h1 class="font-heading text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 neon-text-cyan relative z-10">
+                STAFF-ERGO
+            </h1>
+            <p class="font-heading text-xl md:text-2xl text-slate-300 mt-2 tracking-widest uppercase relative z-10">
+                Sistem Skrining Ergonomi & Muskuloskeletal
+            </p>
+        </header>
+
+        <!-- MAIN FORM -->
+        <form id="ergoForm" class="space-y-8 relative z-10">
+            
+            <!-- SECTION A: Demografi -->
+            <section class="glass-panel rounded-2xl p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-700/50 pb-4">
+                    <div class="w-8 h-8 rounded bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-heading font-bold">A</div>
+                    <h2 class="font-heading text-2xl font-semibold text-slate-100 uppercase tracking-wide">Data Demografi & Profil Pekerjaan</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Nama / Inisial Pegawai</label>
+                        <input type="text" required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500" placeholder="Masukkan nama...">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-2">Usia</label>
+                            <input type="number" min="18" max="100" required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500" placeholder="Tahun">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-2">Jenis Kelamin</label>
+                            <select required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 appearance-none">
+                                <option value="" disabled selected>Pilih...</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Unit / Divisi Kerja</label>
+                        <select required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 appearance-none">
+                            <option value="" disabled selected>Pilih Unit...</option>
+                            <option value="Medis">Medis</option>
+                            <option value="Non Medis">Non Medis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">Masa Kerja di Posisi Saat Ini</label>
+                        <select required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 appearance-none">
+                            <option value="" disabled selected>Pilih Masa Kerja...</option>
+                            <option value="< 1 tahun">< 1 tahun</option>
+                            <option value="1-3 tahun">1 - 3 tahun</option>
+                            <option value="> 3 tahun">> 3 tahun</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm text-slate-400 mb-2">Rata-rata Durasi Duduk/Bekerja Depan Layar per Hari</label>
+                        <select required class="glass-input w-full rounded-lg px-4 py-3 text-slate-100 appearance-none">
+                            <option value="" disabled selected>Pilih Durasi...</option>
+                            <option value="< 4 jam">< 4 jam</option>
+                            <option value="4-6 jam">4 - 6 jam</option>
+                            <option value="> 6 jam">> 6 jam</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION B: NBM -->
+            <section class="glass-panel rounded-2xl p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-8 h-8 rounded bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-heading font-bold">B</div>
+                    <h2 class="font-heading text-2xl font-semibold text-slate-100 uppercase tracking-wide">Skrining Keluhan Otot & Tulang Rangka</h2>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 pb-4 border-b border-slate-700/50">Tingkat keluhan nyeri, pegal, kaku, atau kesemutan dalam 7 hari terakhir.</p>
+                
+                <div id="sectionB-container" class="space-y-4">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <!-- SECTION C: ROSA -->
+            <section class="glass-panel rounded-2xl p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-8 h-8 rounded bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-heading font-bold">C</div>
+                    <h2 class="font-heading text-2xl font-semibold text-slate-100 uppercase tracking-wide">Skrining Postur & Fasilitas Kerja</h2>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 pb-4 border-b border-slate-700/50">Kondisi yang paling menggambarkan posisi dan peralatan kerja Anda sehari-hari.</p>
+                
+                <div id="sectionC-container" class="space-y-6">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <!-- SUBMIT BUTTON -->
+            <div class="text-center pt-6 pb-12">
+                <button type="submit" class="btn-cyber bg-cyan-600 hover:bg-cyan-500 text-white font-heading text-xl tracking-wider py-4 px-12 rounded-lg border border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] uppercase transition-all duration-300">
+                    Kalkulasi Skor Risiko
+                </button>
+            </div>
+        </form>
+
+        <!-- RESULTS DASHBOARD (Hidden by default) -->
+        <section id="resultsDashboard" class="hidden glass-panel rounded-2xl p-6 md:p-8 border-t-4 mb-20 transition-all duration-500 opacity-0 transform translate-y-10">
+            <h2 class="font-heading text-3xl text-center mb-8 uppercase tracking-widest text-slate-100 neon-text-cyan">Hasil Analisis Sistem</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Total Score Box -->
+                <div class="bg-slate-900/80 rounded-xl p-6 flex flex-col justify-center items-center border border-slate-700">
+                    <p class="text-slate-400 text-sm uppercase tracking-wider mb-2">Total Skor Sistem</p>
+                    <div class="text-6xl font-heading font-bold text-white mb-2" id="resScore">00</div>
+                    <p class="text-xs text-slate-500">Rentang 13 - 48</p>
+                </div>
+                
+                <!-- Risk Level Box -->
+                <div id="resRiskBox" class="md:col-span-2 rounded-xl p-6 flex flex-col justify-center border relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 bg-current"></div>
+                    <p class="text-sm uppercase tracking-wider mb-2 z-10 opacity-80 text-white">Kategori Risiko</p>
+                    <div class="text-3xl md:text-4xl font-heading font-bold mb-3 z-10 text-white" id="resRiskLevel">Risiko</div>
+                    <p class="text-sm md:text-base z-10 text-white/90 leading-relaxed" id="resGeneralRec">Deskripsi rekomendasi umum akan muncul di sini.</p>
+                </div>
+            </div>
+
+            <!-- Smart Recommendations (Section E) -->
+            <div id="smartRecContainer" class="hidden space-y-4 mt-8 pt-8 border-t border-slate-700/50">
+                <h3 class="font-heading text-xl text-cyan-300 mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Rekomendasi Cerdas Otomatis
+                </h3>
+                <div id="smartRecList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- DATA DEFINITIONS --- //
+
+        const nbmParts = [
+            { id: 'b1', name: 'Leher bagian atas & bawah (Neck)' },
+            { id: 'b2', name: 'Bahu kiri & kanan (Shoulders)' },
+            { id: 'b3', name: 'Lengan atas & siku (Upper Arms & Elbows)' },
+            { id: 'b4', name: 'Punggung atas (Upper Back)' },
+            { id: 'b5', name: 'Punggung bawah / pinggang (Lower Back)' },
+            { id: 'b6', name: 'Lengan bawah & pergelangan tangan (Wrists/Hands)' },
+            { id: 'b7', name: 'Bokong & paha (Buttocks & Thighs)' },
+            { id: 'b8', name: 'Lutut kiri & kanan (Knees)' },
+            { id: 'b9', name: 'Betis, pergelangan kaki & telapak kaki (Ankles/Feet)' }
+        ];
+
+        const nbmScales = [
+            { val: 1, label: 'Tidak Sakit', desc: 'Nyaman' },
+            { val: 2, label: 'Agak Sakit', desc: 'Pegal ringan' },
+            { val: 3, label: 'Sakit', desc: 'Cukup mengganggu' },
+            { val: 4, label: 'Sangat Sakit', desc: 'Nyeri hebat' }
+        ];
+
+        const rosaQuestions = [
+            {
+                id: 'c1',
+                title: 'Posisi Kursi & Kaki',
+                options: [
+                    { val: 1, text: 'Telapak kaki rata, lutut 90°, punggung bersandar penuh.' },
+                    { val: 2, text: 'Kaki menapak, sandaran lumbar tidak menopang / jarang digunakan.' },
+                    { val: 3, text: 'Kaki menggantung / duduk membungkuk tanpa sandaran.' }
+                ]
+            },
+            {
+                id: 'c2',
+                title: 'Posisi Layar Monitor / Laptop',
+                options: [
+                    { val: 1, text: 'Atas layar sejajar tinggi mata, jarak 1 lengan (45–70 cm).' },
+                    { val: 2, text: 'Terlalu rendah/tinggi (leher menunduk/mendongak ringan 20°).' },
+                    { val: 3, text: 'Laptop tanpa stand (menunduk tajam) / layar di samping (menoleh).' }
+                ]
+            },
+            {
+                id: 'c3',
+                title: 'Posisi Keyboard, Mouse, dan Pergelangan Tangan',
+                options: [
+                    { val: 1, text: 'Siku 90° di samping badan, pergelangan tangan lurus.' },
+                    { val: 2, text: 'Mouse terlalu jauh (bahu menjangkau ke depan/samping).' },
+                    { val: 3, text: 'Pergelangan menekuk tajam atau bertumpu tepi meja tajam lama.' }
+                ]
+            },
+            {
+                id: 'c4',
+                title: 'Kebiasaan Istirahat (Micro-Break)',
+                options: [
+                    { val: 1, text: 'Peregangan atau berdiri setiap 30–60 menit.' },
+                    { val: 2, text: 'Berdiri/istirahat hanya setiap 2–3 jam.' },
+                    { val: 3, text: 'Duduk terus-menerus > 3 jam tanpa berpindah.' }
+                ]
+            }
+        ];
+
+        // --- UI GENERATION --- //
+
+        function generateSectionB() {
+            const container = document.getElementById('sectionB-container');
+            let html = '';
+            
+            nbmParts.forEach((part, index) => {
+                html += `
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50 hover:border-cyan-500/30 transition-colors">
+                    <p class="font-medium text-slate-200 mb-3">${index + 1}. ${part.name}</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                `;
+                
+                nbmScales.forEach(scale => {
+                    const inputId = `${part.id}_${scale.val}`;
+                    html += `
+                        <div>
+                            <input type="radio" id="${inputId}" name="${part.id}" value="${scale.val}" required class="peer sr-only">
+                            <label for="${inputId}" class="block w-full text-center p-2 rounded-lg border border-slate-700 bg-slate-800/50 text-slate-400 cursor-pointer text-sm transition-all duration-200 hover:bg-slate-700
+                            peer-checked:bg-cyan-500/20 peer-checked:text-cyan-300 peer-checked:border-cyan-400 peer-checked:shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                                <div class="font-semibold">${scale.val} - ${scale.label}</div>
+                                <div class="text-[10px] opacity-70 mt-1">${scale.desc}</div>
+                            </label>
+                        </div>
+                    `;
+                });
+                
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function generateSectionC() {
+            const container = document.getElementById('sectionC-container');
+            let html = '';
+
+            rosaQuestions.forEach((q, index) => {
+                html += `
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50 hover:border-purple-500/30 transition-colors">
+                    <p class="font-medium text-slate-200 mb-3">${index + 1}. ${q.title}</p>
+                    <div class="flex flex-col gap-3">
+                `;
+
+                q.options.forEach(opt => {
+                    const inputId = `${q.id}_${opt.val}`;
+                    html += `
+                        <label class="flex items-start cursor-pointer group">
+                            <input type="radio" name="${q.id}" value="${opt.val}" required class="peer sr-only">
+                            <div class="w-5 h-5 rounded-full border-2 border-slate-600 mr-3 mt-0.5 flex-shrink-0 flex items-center justify-center group-hover:border-purple-400 peer-checked:border-purple-500 peer-checked:bg-purple-500/20 peer-checked:shadow-[0_0_8px_rgba(168,85,247,0.5)] transition-all">
+                                <div class="w-2.5 h-2.5 rounded-full bg-purple-400 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                            </div>
+                            <div class="text-sm text-slate-400 group-hover:text-slate-300 peer-checked:text-purple-200 transition-colors">
+                                <span class="font-semibold mr-1">Skor ${opt.val}:</span> ${opt.text}
+                            </div>
+                        </label>
+                    `;
+                });
+
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // --- LOGIC & CALCULATION --- //
+
+        function determineRisk(score) {
+            if (score <= 20) {
+                return { level: 'Risiko Rendah (Low Risk)', colorClass: 'border-emerald-500', bgClass: 'bg-emerald-500', textClass: 'text-emerald-400', shadowClass: 'shadow-[0_0_15px_rgba(16,185,129,0.4)]', rec: 'Postur kerja sudah cukup ergonomis dan keluhan minimal. Pertahankan posisi kerja, lakukan micro-break stretching rutin 2 menit setiap 1 jam.' };
+            } else if (score <= 29) {
+                return { level: 'Risiko Sedang (Moderate Risk)', colorClass: 'border-yellow-400', bgClass: 'bg-yellow-400', textClass: 'text-yellow-300', shadowClass: 'shadow-[0_0_15px_rgba(250,204,21,0.4)]', rec: 'Mulai ditemukan kelelahan otot lokal dan ketidaksesuaian meja/kursi. Lihat panduan penyesuaian dan paket latihan peregangan spesifik.' };
+            } else if (score <= 38) {
+                return { level: 'Risiko Tinggi (High Risk)', colorClass: 'border-orange-500', bgClass: 'bg-orange-500', textClass: 'text-orange-400', shadowClass: 'shadow-[0_0_15px_rgba(249,115,22,0.4)]', rec: 'Keluhan nyeri cukup signifikan dan berpotensi menjadi cedera kronis. Wajib dilakukan penyesuaian workstation segera, latihan terapi peregangan 2 kali sehari, serta notifikasi evaluasi ke petugas K3.' };
+            } else {
+                return { level: 'Risiko Sangat Tinggi (Very High Risk)', colorClass: 'border-red-600', bgClass: 'bg-red-600', textClass: 'text-red-400', shadowClass: 'shadow-[0_0_15px_rgba(220,38,38,0.6)]', rec: 'Gangguan muskuloskeletal berat yang mengganggu produktivitas kerja. Sistem mengirim peringatan merah ke dasbor K3/HRD untuk investigasi ergonomi langsung dan rujukan medis.' };
+            }
+        }
+
+        function evaluateSmartRules(formData) {
+            const rules = [];
+            
+            // Rule 1: Leher > 2 && Layar Monitor == 3
+            if (parseInt(formData.get('b1')) > 2 && parseInt(formData.get('c2')) === 3) {
+                rules.push({
+                    title: 'Edukasi: Cara Mengatur Tinggi Layar Eye-Level',
+                    desc: 'Posisi layar Anda menyebabkan tekanan pada leher. Naikkan monitor atau gunakan penyangga laptop.',
+                    action: 'Video Neck Isometric & Chin Tuck Stretch (60 detik)'
+                });
+            }
+
+            // Rule 2: Punggung Bawah > 3 (meaning 4) && Posisi Kursi == 3
+            if (parseInt(formData.get('b5')) > 3 && parseInt(formData.get('c1')) === 3) {
+                rules.push({
+                    title: 'Edukasi: Penempatan Bantal Penyangga Lumbar',
+                    desc: 'Kurangnya dukungan pada punggung bawah memicu nyeri hebat. Terapkan Posisi Duduk 90-90-90.',
+                    action: 'Video Seated Cat-Cow & Pelvic Tilt Stretch'
+                });
+            }
+
+            // Rule 3: Pergelangan Tangan > 3 (meaning 4)
+            if (parseInt(formData.get('b6')) > 3) {
+                rules.push({
+                    title: 'Edukasi: Posisi Netral Pergelangan Tangan',
+                    desc: 'Risiko tinggi pada pergelangan tangan. Evaluasi posisi keyboard & mouse agar sejajar tanpa tekukan tajam.',
+                    action: 'Video Wrist Flexor/Extensor Stretch'
+                });
+            }
+
+            return rules;
+        }
+
+        document.getElementById('ergoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let scoreB = 0;
+            let scoreC = 0;
+
+            // Calculate Section B (9 items)
+            nbmParts.forEach(part => { scoreB += parseInt(formData.get(part.id) || 0); });
+            
+            // Calculate Section C (4 items)
+            rosaQuestions.forEach(q => { scoreC += parseInt(formData.get(q.id) || 0); });
+
+            const totalScore = scoreB + scoreC;
+            const riskData = determineRisk(totalScore);
+
+            // Update UI
+            document.getElementById('resScore').innerText = totalScore;
+            document.getElementById('resRiskLevel').innerText = riskData.level;
+            document.getElementById('resGeneralRec').innerText = riskData.rec;
+            
+            const riskBox = document.getElementById('resRiskBox');
+            const dashboard = document.getElementById('resultsDashboard');
+            
+            // Reset risk box classes
+            riskBox.className = `md:col-span-2 rounded-xl p-6 flex flex-col justify-center border relative overflow-hidden bg-slate-900/80 ${riskData.colorClass} ${riskData.shadowClass}`;
+            document.getElementById('resRiskLevel').className = `text-3xl md:text-4xl font-heading font-bold mb-3 z-10 ${riskData.textClass}`;
+            
+            // Smart Rules
+            const smartRules = evaluateSmartRules(formData);
+            const smartContainer = document.getElementById('smartRecContainer');
+            const smartList = document.getElementById('smartRecList');
+            
+            if (smartRules.length > 0) {
+                smartContainer.classList.remove('hidden');
+                smartList.innerHTML = smartRules.map(rule => `
+                    <div class="bg-slate-800/80 p-4 rounded-lg border border-cyan-500/30 border-l-4 border-l-cyan-500 shadow-lg">
+                        <h4 class="font-bold text-cyan-200 mb-1">${rule.title}</h4>
+                        <p class="text-sm text-slate-300 mb-3">${rule.desc}</p>
+                        <button type="button" class="text-xs bg-cyan-900/50 hover:bg-cyan-800 border border-cyan-700 text-cyan-100 py-1.5 px-3 rounded inline-flex items-center gap-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                            </svg>
+                            Tonton ${rule.action}
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                smartContainer.classList.add('hidden');
+            }
+
+            // Show Dashboard with Animation
+            dashboard.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity/transform
+            setTimeout(() => {
+                dashboard.classList.remove('opacity-0', 'translate-y-10');
+                dashboard.classList.add('opacity-100', 'translate-y-0');
+                // Set border color for the whole dashboard container to match risk
+                dashboard.className = `glass-panel rounded-2xl p-6 md:p-8 border-t-4 mb-20 transition-all duration-500 opacity-100 translate-y-0 ${riskData.colorClass}`;
+                
+                // Smooth scroll down to results
+                dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            generateSectionB();
+            generateSectionC();
+        });
+
+    </script>
+</body>
+</html>

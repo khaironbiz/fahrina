@@ -1,0 +1,7 @@
+buatkan perencanaan yang proper untuk membuat formulir questionare ergonomic assessment tools untuk penilaian ergonomik di workplace
+aplikasi ini dibuat menggunakan laravel, database menggunakan sqlite.
+formulir seperti ini : C:\xampp\htdocs\inovasi\staff_ergo_dashboard.html
+
+tambahkan inputan mengisi email
+setiap selesai input form user mendapatkan notifikasi dan mendapatkan hasil skriningnya dalam bentuk pdf, hasil dikirim ke email tersebut
+

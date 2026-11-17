@@ -23,6 +23,10 @@ class AssessmentTest extends TestCase
         $response->assertSee('Alamat Email Pegawai');
         $response->assertSee('Skrining Keluhan Otot');
         $response->assertSee('Skrining Postur');
+        $response->assertSee('websiteQrCanvas');
+        $response->assertSee('Pindai untuk Buka Halaman Ini');
+        $response->assertSee('Pindai QR Code untuk Unduh di Ponsel');
+        $response->assertSee('qrcodeCanvas');
     }
 
     public function test_validation_fails_when_required_fields_are_missing(): void

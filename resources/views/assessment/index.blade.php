@@ -15,6 +15,9 @@
     <!-- SweetAlert2 for Modern Glass Notifications -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -114,6 +117,38 @@
             <p class="font-heading text-xl md:text-2xl text-slate-300 mt-2 tracking-widest uppercase relative z-10">
                 Sistem Skrining Ergonomi & Muskuloskeletal Tempat Kerja
             </p>
+
+            <!-- QR CODE HEADER: AKSES HALAMAN WEBSITE -->
+            <div class="mt-6 flex flex-col items-center justify-center relative z-10">
+                <div class="inline-flex flex-col sm:flex-row items-center gap-4 p-3.5 rounded-2xl bg-slate-900/80 border border-cyan-500/30 shadow-[0_0_25px_rgba(6,182,212,0.15)] backdrop-blur-md">
+                    <!-- QR Box White Background -->
+                    <div class="bg-white p-2 rounded-xl shadow-md border border-cyan-400 flex items-center justify-center">
+                        <div id="websiteQrCanvas" class="w-[100px] h-[100px] flex items-center justify-center"></div>
+                    </div>
+                    
+                    <div class="text-center sm:text-left space-y-1.5 max-w-xs">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-[10px] font-semibold uppercase tracking-wider">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                            Scan via Smartphone
+                        </div>
+                        <h4 class="font-heading text-sm text-slate-100 font-bold uppercase tracking-wider">
+                            Pindai untuk Buka Halaman Ini
+                        </h4>
+                        <p class="text-[11px] text-slate-400 leading-tight">
+                            Arahkan kamera smartphone Anda ke QR Code ini untuk membuka formulir asesmen langsung di ponsel.
+                        </p>
+                        <div class="pt-1 flex items-center gap-1.5 justify-center sm:justify-start">
+                            <span id="headerUrlText" class="text-[10px] text-cyan-300 font-mono truncate max-w-[190px] block"></span>
+                            <button type="button" onclick="copyHeaderUrl()" title="Salin URL Website" class="p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 transition-colors inline-flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-[9px]">Salin</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <!-- MAIN FORM -->
@@ -327,6 +362,39 @@
                     <!-- Injected via AJAX response -->
                 </div>
             </div>
+
+            <!-- QR CODE VERIFICATION & MOBILE DOWNLOAD SECTION -->
+            <div id="qrCodeCard" class="mt-8 pt-8 border-t border-slate-700/50">
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-cyan-500/30 flex flex-col sm:flex-row items-center gap-6 shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+                    <!-- White Container for High-Contrast Mobile Scan -->
+                    <div class="bg-white p-3 rounded-xl shadow-lg flex-shrink-0 flex items-center justify-center border-2 border-cyan-400">
+                        <div id="qrcodeCanvas"></div>
+                    </div>
+                    
+                    <div class="space-y-2 text-center sm:text-left flex-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
+                                <path d="M11 10a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1zM10 13a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1zM14 13a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1zM13 16a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1z" />
+                            </svg>
+                            QR Code Akses & Unduh Mobile
+                        </div>
+                        <h3 class="font-heading text-xl text-slate-100 font-bold tracking-wide">Pindai QR Code untuk Unduh di Ponsel</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Arahkan kamera smartphone Anda ke QR Code ini untuk membuka atau mengunduh salinan dokumen PDF resmi hasil asesmen ergonomi Anda langsung di ponsel.
+                        </p>
+                        <div class="pt-2 flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+                            <input id="qrLinkInput" type="text" readonly class="text-[11px] bg-slate-950/80 border border-slate-700 rounded-lg px-3 py-1.5 text-cyan-300 w-full sm:w-80 truncate focus:outline-none select-all">
+                            <button type="button" id="btnCopyLink" onclick="copyQrLink()" class="text-xs bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                <span id="copyBtnText">Salin Tautan</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </div>
@@ -399,6 +467,9 @@
                 document.getElementById('resTargetEmail').innerText = data.email;
                 document.getElementById('btnDownloadPdf').href = data.download_url;
 
+                // Render QR Code
+                renderQrCode(data.download_url);
+
                 // Risk Box styling
                 const riskBox = document.getElementById('resRiskBox');
                 riskBox.className = `md:col-span-2 rounded-xl p-6 flex flex-col justify-center border relative overflow-hidden bg-slate-900/80 ${risk.colorClass} ${risk.shadowClass}`;
@@ -465,6 +536,116 @@
                 btnText.innerText = "Kalkulasi Skor & Kirim Laporan PDF";
                 btnSpinner.classList.add('hidden');
             }
+        });
+
+        // Function to render QR Code with library or API fallback
+        function renderQrCode(url) {
+            const container = document.getElementById('qrcodeCanvas');
+            container.innerHTML = '';
+
+            const linkInput = document.getElementById('qrLinkInput');
+            if (linkInput) linkInput.value = url;
+
+            if (typeof QRCode !== 'undefined') {
+                new QRCode(container, {
+                    text: url,
+                    width: 125,
+                    height: 125,
+                    colorDark: "#0f172a",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            } else {
+                container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=125x125&data=${encodeURIComponent(url)}" alt="QR Code" class="w-[125px] h-[125px]">`;
+            }
+        }
+
+        // Copy QR Link to clipboard
+        function copyQrLink() {
+            const input = document.getElementById('qrLinkInput');
+            if (!input || !input.value) return;
+
+            input.select();
+            input.setSelectionRange(0, 99999);
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(input.value).then(() => {
+                    const copyText = document.getElementById('copyBtnText');
+                    copyText.innerText = 'Tersalin!';
+                    setTimeout(() => { copyText.innerText = 'Salin Tautan'; }, 2000);
+                }).catch(() => {
+                    fallbackCopy(input);
+                });
+            } else {
+                fallbackCopy(input);
+            }
+        }
+
+        function fallbackCopy(input) {
+            try {
+                document.execCommand('copy');
+                const copyText = document.getElementById('copyBtnText');
+                copyText.innerText = 'Tersalin!';
+                setTimeout(() => { copyText.innerText = 'Salin Tautan'; }, 2000);
+            } catch (err) {
+                alert('Tautan: ' + input.value);
+            }
+        }
+
+        // Render Header Website QR Code on page load
+        function renderHeaderWebsiteQr() {
+            const currentUrl = window.location.href;
+            const container = document.getElementById('websiteQrCanvas');
+            const urlText = document.getElementById('headerUrlText');
+            
+            if (urlText) {
+                urlText.innerText = currentUrl;
+                urlText.title = currentUrl;
+            }
+
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (typeof QRCode !== 'undefined') {
+                new QRCode(container, {
+                    text: currentUrl,
+                    width: 100,
+                    height: 100,
+                    colorDark: "#0f172a",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            } else {
+                container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(currentUrl)}" alt="Website QR Code" class="w-[100px] h-[100px]">`;
+            }
+        }
+
+        // Copy Header URL
+        function copyHeaderUrl() {
+            const currentUrl = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(currentUrl).then(() => {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'URL Website berhasil disalin!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        background: '#0f172a',
+                        color: '#38bdf8'
+                    });
+                }).catch(() => {
+                    prompt('Salin URL ini:', currentUrl);
+                });
+            } else {
+                prompt('Salin URL ini:', currentUrl);
+            }
+        }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHeaderWebsiteQr();
         });
     </script>
 </body>
